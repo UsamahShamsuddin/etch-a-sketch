@@ -1,10 +1,49 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    font-family: "Sofia";
+    text-align: center;
+    font-size: 4em;
+    margin-bottom: .5em;
+}
+
 .container {
     outline: 1px solid black;
-    margin: 0 auto;
     width: 500px;
     height: 500px;
+    display: flex;
 }
 
 .box {
-    outline: 1px solid blue;
+    outline: 1px solid gray;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    justify-content: space-around;
+}
+
+.btn {
+    height: 50px;
+    width: 100px;
+}
+
+footer {
+    margin-top: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-top: 100px;
 }
