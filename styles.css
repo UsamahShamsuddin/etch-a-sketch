@@ -46,4 +46,17 @@ footer {
     margin-bottom: 10px;
     text-align: center;
     padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.fa-github {
+    transition: transform 0.3s ease-in-out;
+}
+
+.fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
+    cursor: pointer;
 }
