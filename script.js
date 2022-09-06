@@ -16,6 +16,7 @@ function createGrid(boxes) {
                 box.style.backgroundColor = "black";
             });
             box.addEventListener("mousedown", () => {
+                clearSelection();
                 box.style.backgroundColor = "black";
             })
         }
@@ -29,14 +30,23 @@ function newGrid() {
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     };
-    let gridSize = prompt("Please enter your desired size of grid.");
-    createGrid(gridSize);
+    let gridSize = prompt("Please enter your desired size of grid (between 1 - 100).");
+    if (gridSize < 1 || gridSize > 100) {
+        alert("Please enter a valid size!");
+        newGrid();
+    } else {
+        createGrid(gridSize);
+    }
 }
 
-window.addEventListener("mousedown", () => {
-    draw = true;
-});
-window.addEventListener("mouseup", () => {
-    draw = false;
-})
+function clearSelection() {
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+    } else if (document.selection) {
+        document.selection.empty();
+    }
+}
+
+document.body.addEventListener("mousedown", () => draw = true);
+document.body.addEventListener("mouseup", () => draw = false)
 btnGrid.addEventListener("click", newGrid);
