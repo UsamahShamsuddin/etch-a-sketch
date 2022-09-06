@@ -10,16 +10,21 @@ function createGrid(boxes) {
             box.style.width = `${container.offsetWidth / boxes}px`;
             box.style.height = `${container.offsetHeight / boxes}px`;
             grid.appendChild(box);
+            box.addEventListener("mouseover", () => {
+                box.style.backgroundColor = "black";
+            })
         }
         container.appendChild(grid);
     }
 }
 
+createGrid(10);
+
 function newGrid() {
     while (container.firstChild) {
         container.removeChild(container.firstChild);
-    }
-    let gridSize = prompt("Please enter your desired size of grid");
+    };
+    let gridSize = prompt("Please enter your desired size of grid.");
     createGrid(gridSize);
 }
 
