@@ -1,6 +1,8 @@
 const container = document.querySelector(".container");
 const btnGrid = document.querySelector(".new-grid");
+const btnClear = document.querySelector(".clear");
 let draw = false;
+let currentSize;
 
 // create grid and click to sketch
 function createGrid(boxes) {
@@ -24,6 +26,7 @@ function createGrid(boxes) {
         }
         container.appendChild(grid);
     }
+    return currentSize = boxes;
 }
 
 // function to deselect everything
@@ -52,6 +55,12 @@ function newGrid() {
     }
 }
 
+function clear() {
+    container.innerHTML = "";
+    createGrid(currentSize);
+}
+
 document.body.addEventListener("mousedown", () => draw = true);
 document.body.addEventListener("mouseup", () => draw = false)
 btnGrid.addEventListener("click", newGrid);
+btnClear.addEventListener("click", clear);
