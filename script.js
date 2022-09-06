@@ -1,5 +1,6 @@
 const container = document.querySelector(".container");
 const btnGrid = document.querySelector(".new-grid");
+let draw = false;
 
 function createGrid(boxes) {
     for (let i = 0; i < boxes; i++) {
@@ -11,6 +12,10 @@ function createGrid(boxes) {
             box.style.height = `${container.offsetHeight / boxes}px`;
             grid.appendChild(box);
             box.addEventListener("mouseover", () => {
+                if (!draw) return;
+                box.style.backgroundColor = "black";
+            });
+            box.addEventListener("mousedown", () => {
                 box.style.backgroundColor = "black";
             })
         }
@@ -18,7 +23,7 @@ function createGrid(boxes) {
     }
 }
 
-createGrid(10);
+createGrid(30);
 
 function newGrid() {
     while (container.firstChild) {
@@ -28,4 +33,10 @@ function newGrid() {
     createGrid(gridSize);
 }
 
+window.addEventListener("mousedown", () => {
+    draw = true;
+});
+window.addEventListener("mouseup", () => {
+    draw = false;
+})
 btnGrid.addEventListener("click", newGrid);
