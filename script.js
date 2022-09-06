@@ -1,4 +1,5 @@
 const container = document.querySelector(".container");
+const btnGrid = document.querySelector(".new-grid");
 
 function createGrid(boxes) {
     for (let i = 0; i < boxes; i++) {
@@ -14,4 +15,12 @@ function createGrid(boxes) {
     }
 }
 
-createGrid(64);
+function newGrid() {
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+    let gridSize = prompt("Please enter your desired size of grid");
+    createGrid(gridSize);
+}
+
+btnGrid.addEventListener("click", newGrid);
