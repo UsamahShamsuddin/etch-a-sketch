@@ -3,6 +3,12 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 100%;
+    color: #fff;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    position: relative;
+    animation: change 10s ease-in-out infinite;
 }
 
 header {
@@ -13,7 +19,8 @@ header {
 }
 
 .container {
-    outline: 1px solid black;
+    background-color: white;
+    outline: 3px solid black;
     width: 500px;
     height: 500px;
     display: flex;
@@ -41,6 +48,11 @@ main {
     width: 100px;
 }
 
+.pressed {
+    background-color: rgb(66, 179, 113);
+    border: 1px solid black;
+}
+
 footer {
     margin-top: auto;
     margin-bottom: 10px;
@@ -59,4 +71,18 @@ footer {
 .fa-github:hover {
     transform: rotate(360deg) scale(1.2);
     cursor: pointer;
+}
+
+@keyframes change {
+    0% {
+        background-position: 0 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
 }

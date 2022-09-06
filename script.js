@@ -1,23 +1,27 @@
 const container = document.querySelector(".container");
+const color = document.querySelector(".input-color");
+const btnChoose = document.querySelector(".choose");
 const btnGrid = document.querySelector(".new-grid");
 const btnClear = document.querySelector(".clear");
-const btnErase = document.querySelector(".erase");
+const btnEraserOn = document.querySelector(".eraser-ON");
+const btnEraserOff = document.querySelector(".eraser-OFF");
 const btnGridOff = document.querySelector(".grid-OFF");
 const btnGridOn = document.querySelector(".grid-ON");
+const btnRandom = document.querySelector(".random");
 let draw = false;
 let currentSize;
 
 // mouseover sketch color
 function mouseOverSketch() {
     if (!draw) return;
-    this.style.backgroundColor = "black";
+    this.style.backgroundColor = color.value;
 };
 
 // mousedown sketch color
 function mouseDownSketch() {
     // deselecting on mousedown
     clearSelection();
-    this.style.backgroundColor = "black";
+    this.style.backgroundColor = color.value;
 };
 
 // mouseover erase color
@@ -30,6 +34,18 @@ function mouseOverErase() {
 function mouseDownErase() {
     clearSelection();
     this.style.backgroundColor = "white";
+}
+
+// mouseover randomized
+function mouseOverRandom() {
+    if (!draw) return;
+    this.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+}
+
+// mousedown randomized
+function mouseDownRandom() {
+    clearSelection();
+    this.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
 }
 
 // set mouseover current function
@@ -93,8 +109,10 @@ document.body.addEventListener("mousedown", () => draw = true);
 document.body.addEventListener("mouseup", () => draw = false)
 btnGrid.addEventListener("click", newGrid);
 btnClear.addEventListener("click", clear);
-// erase grid by grid
-btnErase.addEventListener("click", () => {
+// toggle eraser on
+btnEraserOn.addEventListener("click", () => {
+    btnEraserOff.classList.remove("pressed");
+    btnEraserOn.classList.add("pressed");
     const createdBoxes = document.querySelectorAll("[data-type=box]");
     for (let i = 0; i < createdBoxes.length; i++) {
         createdBoxes[i].removeEventListener("mouseover", currentFunctionOver);
@@ -105,8 +123,26 @@ btnErase.addEventListener("click", () => {
     currentFunctionOver = mouseOverErase;
     currentFunctionDown = mouseDownErase;
 });
+// toggle eraser off
+btnEraserOff.addEventListener("click", () => {
+    btnEraserOn.classList.remove("pressed");
+    btnEraserOff.classList.add("pressed");
+    const createdBoxes = document.querySelectorAll("[data-type=box]");
+    for (let i = 0; i < createdBoxes.length; i++) {
+        createdBoxes[i].removeEventListener("mouseover", currentFunctionOver);
+        createdBoxes[i].addEventListener("mouseover", mouseOverSketch);
+        createdBoxes[i].removeEventListener("mousedown", currentFunctionDown);
+        createdBoxes[i].addEventListener("mousedown", mouseDownSketch);
+    }
+    btnRandom.classList.remove("pressed");
+    btnChoose.classList.add("pressed");
+    currentFunctionOver = mouseOverSketch;
+    currentFunctionDown = mouseDownSketch;
+});
 // toggle grid line off
 btnGridOff.addEventListener("click", () => {
+    btnGridOn.classList.remove("pressed");
+    btnGridOff.classList.add("pressed");
     const createdBoxes = document.querySelectorAll("[data-type=box]");
     for (let i = 0; i < createdBoxes.length; i++) {
         createdBoxes[i].classList.remove("box");
@@ -114,8 +150,38 @@ btnGridOff.addEventListener("click", () => {
 });
 // toggle grid line on
 btnGridOn.addEventListener("click", () => {
+    btnGridOff.classList.remove("pressed");
+    btnGridOn.classList.add("pressed");
     const createdBoxes = document.querySelectorAll("[data-type=box]");
     for (let i = 0; i < createdBoxes.length; i++) {
         createdBoxes[i].classList.add("box");
     }
 });
+// color randomized
+btnRandom.addEventListener("click", () => {
+    btnChoose.classList.remove("pressed");
+    btnRandom.classList.add("pressed");
+    const createdBoxes = document.querySelectorAll("[data-type=box]");
+    for (let i = 0; i < createdBoxes.length; i++) {
+        createdBoxes[i].removeEventListener("mouseover", currentFunctionOver);
+        createdBoxes[i].addEventListener("mouseover", mouseOverRandom);
+        createdBoxes[i].removeEventListener("mousedown", currentFunctionDown);
+        createdBoxes[i].addEventListener("mousedown", mouseDownRandom);
+    }
+    currentFunctionOver = mouseOverRandom;
+    currentFunctionDown = mouseDownRandom;
+});
+// choose color
+btnChoose.addEventListener("click", () => {
+    btnRandom.classList.remove("pressed");
+    btnChoose.classList.add("pressed");
+    const createdBoxes = document.querySelectorAll("[data-type=box]");
+    for (let i = 0; i < createdBoxes.length; i++) {
+        createdBoxes[i].removeEventListener("mouseover", currentFunctionOver);
+        createdBoxes[i].addEventListener("mouseover", mouseOverSketch);
+        createdBoxes[i].removeEventListener("mousedown", currentFunctionDown);
+        createdBoxes[i].addEventListener("mousedown", mouseDownSketch);
+    }
+    currentFunctionOver = mouseOverSketch;
+    currentFunctionDown = mouseDownSketch;
+})
