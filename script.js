@@ -2,6 +2,7 @@ const container = document.querySelector(".container");
 const btnGrid = document.querySelector(".new-grid");
 let draw = false;
 
+// create grid and click to sketch
 function createGrid(boxes) {
     for (let i = 0; i < boxes; i++) {
         const grid = document.createElement("div");
@@ -16,6 +17,7 @@ function createGrid(boxes) {
                 box.style.backgroundColor = "black";
             });
             box.addEventListener("mousedown", () => {
+                // deselecting on mousedown
                 clearSelection();
                 box.style.backgroundColor = "black";
             })
@@ -24,8 +26,19 @@ function createGrid(boxes) {
     }
 }
 
+// function to deselect everything
+function clearSelection() {
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+    } else if (document.selection) {
+        document.selection.empty();
+    }
+}
+
+// initialize on page load
 createGrid(30);
 
+// prompt to create new grid size
 function newGrid() {
     while (container.firstChild) {
         container.removeChild(container.firstChild);
@@ -36,14 +49,6 @@ function newGrid() {
         newGrid();
     } else {
         createGrid(gridSize);
-    }
-}
-
-function clearSelection() {
-    if (window.getSelection) {
-        window.getSelection().removeAllRanges();
-    } else if (document.selection) {
-        document.selection.empty();
     }
 }
 
